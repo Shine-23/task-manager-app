@@ -3,34 +3,34 @@
 This is a Spring Boot-based Task Manager application with JWT-based authentication and role-based access control. The app allows users to manage tasks securely by authenticating with JSON Web Tokens (JWT).
 
 ## Project Structure
-```
-config
-└── SecurityConfig               # Security configuration for JWT and Spring Security
-
-controller
-└── AuthController               # Controller for user authentication (login)
-
-entity
-├── Role                        # Entity representing user roles (e.g., ADMIN, USER)
-├── Task                        # Entity representing a task
-└── User                        # Entity representing an application user
-
-repository
-├── RoleRepository              # Data access layer for roles
-├── TaskRepository              # Data access layer for tasks
-└── UserRepository              # Data access layer for users
-
-security
-├── JwtAuthFilter               # JWT authentication filter for validating tokens
-└── JwtTokenProvider            # Utility class for generating and validating JWT tokens
-
-service
-├── CustomUserDetailsService    # Loads user details for authentication
-├── RoleService                 # Business logic related to roles
-├── TaskService                 # Business logic related to tasks
-└── UserService                 # Business logic related to users
-
-```
+  ```
+  config
+  └── SecurityConfig               # Security configuration for JWT and Spring Security
+  
+  controller
+  └── AuthController               # Controller for user authentication (login)
+  
+  entity
+  ├── Role                        # Entity representing user roles (e.g., ADMIN, USER)
+  ├── Task                        # Entity representing a task
+  └── User                        # Entity representing an application user
+  
+  repository
+  ├── RoleRepository              # Data access layer for roles
+  ├── TaskRepository              # Data access layer for tasks
+  └── UserRepository              # Data access layer for users
+  
+  security
+  ├── JwtAuthFilter               # JWT authentication filter for validating tokens
+  └── JwtTokenProvider            # Utility class for generating and validating JWT tokens
+  
+  service
+  ├── CustomUserDetailsService    # Loads user details for authentication
+  ├── RoleService                 # Business logic related to roles
+  ├── TaskService                 # Business logic related to tasks
+  └── UserService                 # Business logic related to users
+  
+  ```
 
 ## Features
 
@@ -71,7 +71,7 @@ service
     {
       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
     }
-  ```
+    ```
 6.   Use this token in the `Authorization header` (Bearer token) for accessing protected endpoints.
 
 ## Technologies Used
@@ -90,21 +90,21 @@ service
 - Postman or any REST client for testing APIs
 ### Setup
 1. Clone the repository
-```bash
-git clone <repository-url>
-```
+  ```bash
+  git clone <repository-url>
+  ```
 2. Configure database settings in `application.properties`
-```bash
-spring.datasource.url=jdbc:mysql://localhost:3306/taskmanager_db
-spring.datasource.username=root
-spring.datasource.password=yourpassword
-spring.jpa.hibernate.ddl-auto=update
-```
+  ```bash
+  spring.datasource.url=jdbc:mysql://localhost:3306/taskmanager_db
+  spring.datasource.username=root
+  spring.datasource.password=yourpassword
+  spring.jpa.hibernate.ddl-auto=update
+  ```
 4. Build and run the application
-```bash
-mvn clean install
-mvn spring-boot:run
-```
+  ```bash
+  mvn clean install
+  mvn spring-boot:run
+  ```
 ## API Endpoints
 ### Authentication
 - `POST /api/auth/login` - Authenticate user and receive JWT token
