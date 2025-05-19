@@ -67,11 +67,11 @@ service
    }
    ```
 5. The response will include a JWT token:
-  ```bash
-  {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-  }
-```
+    ```bash
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  ```
 6.   Use this token in the `Authorization header` (Bearer token) for accessing protected endpoints.
 
 ## Technologies Used
