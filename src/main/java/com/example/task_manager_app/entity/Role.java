@@ -3,14 +3,8 @@ package com.example.task_manager_app.entity;
 //defines access (e.g., USER, ADMIN)
 
 import jakarta.persistence.*;
-import lombok.*;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Role {
 
     @Id
@@ -19,4 +13,5 @@ public class Role {
 
     @Column(unique = true, nullable = false)
     private String name;
+
 }
