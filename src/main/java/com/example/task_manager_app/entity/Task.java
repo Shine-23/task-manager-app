@@ -5,9 +5,11 @@ package com.example.task_manager_app.entity;
 import jakarta.persistence.*;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
+@Table(name = "tasks")
 public class Task {
 
     @Id
@@ -15,18 +17,32 @@ public class Task {
     private Long id;
 
     private String title;
-
     private String description;
 
-    private boolean completed;
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status = TaskStatus.PENDING;
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
+    private LocalDate dueDate;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+     @ManyToOne
+     @JoinColumn(name = "user_id")
+     private User assignedUser;
+
+    public Task() {}
+
+    public Task(Long id, String title, String description, TaskStatus status, LocalDate dueDate, Project project, User assignedUser) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.dueDate = dueDate;
+        this.project = project;
+        this.assignedUser = assignedUser;
+    }
 
     public Long getId() {
         return id;
@@ -52,35 +68,47 @@ public class Task {
         this.description = description;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public TaskStatus getStatus() {
+        return status;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
+    public Project getProject() {
+        return project;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
-    public User getUser() {
-        return user;
+    public User getAssignedUser() {
+        return assignedUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAssignedUser(User assignedUser) {
+        this.assignedUser = assignedUser;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(id, task.id) && Objects.equals(title, task.title) && Objects.equals(description, task.description) && status == task.status && Objects.equals(dueDate, task.dueDate) && Objects.equals(project, task.project) && Objects.equals(assignedUser, task.assignedUser);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, status, dueDate, project, assignedUser);
     }
 }
