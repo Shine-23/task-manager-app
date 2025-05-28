@@ -1,5 +1,6 @@
 package com.example.task_manager_app.service;
 
+import com.example.task_manager_app.entity.ERole;
 import com.example.task_manager_app.entity.Role;
 import com.example.task_manager_app.entity.User;
 import com.example.task_manager_app.repository.UserRepository;
@@ -35,7 +36,7 @@ public class UserService {
 
         Set<Role> roles = new HashSet<>();
         for(String roleName:roleNames){
-            Role role = roleService.findByName(roleName)
+            Role role = roleService.findByName(ERole.valueOf(roleName))
                     .orElseThrow( () -> new RuntimeException("Role not found: "+ roleName));
             roles.add(role);
         }

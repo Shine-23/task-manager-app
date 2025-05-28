@@ -1,5 +1,6 @@
 package com.example.task_manager_app.service;
 
+import com.example.task_manager_app.entity.ERole;
 import com.example.task_manager_app.entity.Role;
 import com.example.task_manager_app.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public Optional<Role> findByName(String name){
+    public Optional<Role> findByName(ERole name){
         return roleRepository.findByName(name);
     }
 }
