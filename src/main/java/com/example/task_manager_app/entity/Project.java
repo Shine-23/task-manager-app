@@ -2,6 +2,7 @@ package com.example.task_manager_app.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +16,7 @@ public class Project {
 
     private String name;
     private String description;
+    private LocalDateTime createdDate;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks = new ArrayList<>();
@@ -25,11 +27,13 @@ public class Project {
 
     public Project() {}
 
-    public Project(Long id, String name, String description, List<Task> tasks) {
+    public Project(Long id, String name, String description, LocalDateTime createdDate, List<Task> tasks, User owner) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.createdDate = createdDate;
         this.tasks = tasks;
+        this.owner = owner;
     }
 
     public Long getId() {
@@ -56,6 +60,14 @@ public class Project {
         this.description = description;
     }
 
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
     public List<Task> getTasks() {
         return tasks;
     }
@@ -64,15 +76,23 @@ public class Project {
         this.tasks = tasks;
     }
 
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Project project = (Project) o;
-        return Objects.equals(id, project.id) && Objects.equals(name, project.name) && Objects.equals(description, project.description) && Objects.equals(tasks, project.tasks);
+        return Objects.equals(id, project.id) && Objects.equals(name, project.name) && Objects.equals(description, project.description) && Objects.equals(createdDate, project.createdDate) && Objects.equals(tasks, project.tasks) && Objects.equals(owner, project.owner);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, tasks);
+        return Objects.hash(id, name, description, createdDate, tasks, owner);
     }
 }
