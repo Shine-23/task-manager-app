@@ -19,6 +19,10 @@ public class Project {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks = new ArrayList<>();
 
+     @ManyToOne
+     @JoinColumn(name = "user_id")
+     private User owner;
+
     public Project() {}
 
     public Project(Long id, String name, String description, List<Task> tasks) {
