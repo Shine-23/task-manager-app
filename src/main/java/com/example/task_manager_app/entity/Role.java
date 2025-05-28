@@ -4,21 +4,20 @@ package com.example.task_manager_app.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class Role {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(unique = true)
+    private ERole name;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public Role(Long id, ERole name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -28,5 +27,25 @@ public class Role {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public ERole getName() {
+        return name;
+    }
+
+    public void setName(ERole name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(id, role.id) && name == role.name;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }
