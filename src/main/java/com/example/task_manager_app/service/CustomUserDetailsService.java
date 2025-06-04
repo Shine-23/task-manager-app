@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new RuntimeException("User not found."));
 
         var authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .toList();
 
         return new org.springframework.security.core.userdetails.User(
