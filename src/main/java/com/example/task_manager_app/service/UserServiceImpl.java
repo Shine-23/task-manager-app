@@ -3,14 +3,14 @@ package com.example.task_manager_app.service;
 import com.example.task_manager_app.entity.User;
 import com.example.task_manager_app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
@@ -31,9 +31,9 @@ public class UserServiceImpl {
         return userRepository.existsByEmail(email);
     }
 
-    public List<User> getAllUsers(Pageable pageable) {
-        return userRepository.findAll(pageable).getContent();
-    }
+    public Page<User> getAllUsers(Pageable pageable) {return userRepository.findAll(pageable);}
+
+    public Optional<User> getUserById(Long id){return userRepository.findById(id); }
 
     public Optional<User> updateUser(Long id, User updatedUser) {
         return userRepository.findById(id).map(user -> {
