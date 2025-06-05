@@ -16,6 +16,8 @@ public class Role {
     @Column(unique = true)
     private ERole name;
 
+    public Role() {}
+    
     public Role(Long id, ERole name) {
         this.id = id;
         this.name = name;
