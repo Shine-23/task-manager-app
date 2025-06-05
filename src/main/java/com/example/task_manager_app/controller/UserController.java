@@ -31,12 +31,13 @@ public class UserController {
     }
 
     // Get user by ID (Admin or Self)
-    @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or #id == principal.id")
-    public ResponseEntity<Optional<User>> getUserById(@PathVariable Long id){
+    @GetMapping("{id}")
+    public ResponseEntity<Optional<User>> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
+
 
     // Update user (email or password) - Admin or Self
     @PutMapping("/{id}")
