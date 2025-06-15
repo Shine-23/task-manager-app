@@ -52,7 +52,7 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public void deleteTask(Long id) {taskRepository.deleteById(id); }
+    public void deleteTaskById(Long id) {taskRepository.deleteById(id); }
 
     @Override
     public Page<Task> findTasksByProjectOwner(User owner, Pageable pageable) {
