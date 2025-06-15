@@ -20,4 +20,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     @Query("SELECT DISTINCT p FROM Project p JOIN p.tasks t WHERE t.assignedUser.id = :userId")
     Page<Project> findProjectsByUserAssignedTasks(@Param("userId") Long userId, Pageable pageable);
+
+
+
 }
