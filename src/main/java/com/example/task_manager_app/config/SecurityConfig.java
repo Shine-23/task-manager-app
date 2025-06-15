@@ -51,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/projects/**").hasAnyRole("USER","PROJECT_MANAGER")
                         .requestMatchers(HttpMethod.GET,"/api/tasks/**").hasAnyRole("USER","PROJECT_MANAGER")
+                        .requestMatchers("/users/role/ROLE_USER").hasAnyRole("PROJECT_MANAGER", "USER")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
