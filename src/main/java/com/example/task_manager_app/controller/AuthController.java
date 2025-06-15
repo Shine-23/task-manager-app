@@ -1,8 +1,12 @@
 package com.example.task_manager_app.controller;
 
+import com.example.task_manager_app.dto.AuthResponse;
+import com.example.task_manager_app.dto.LoginRequest;
+import com.example.task_manager_app.dto.RegisterRequest;
 import com.example.task_manager_app.entity.ERole;
 import com.example.task_manager_app.entity.Role;
 import com.example.task_manager_app.entity.User;
+import com.example.task_manager_app.security.CustomUserDetails;
 import com.example.task_manager_app.security.JwtTokenProvider;
 import com.example.task_manager_app.service.CustomUserDetailsService;
 import com.example.task_manager_app.service.RoleService;
@@ -14,13 +18,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.task_manager_app.security.CustomUserDetails;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -45,31 +44,30 @@ public class AuthController {
     @Autowired
     private RoleService roleService;
 
-
-
     @PostMapping("/login")
-    public ResponseEntity<?> authenticUser(@RequestBody Map<String, String> loginRequest ){
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         try {
-            String username = loginRequest.get("username");
-            String password = loginRequest.get("password");
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getUsername(),
+                            loginRequest.getPassword()
+                    )
+            );
 
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-
-            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(loginRequest.getUsername());
             CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
             String jwt = jwtTokenProvider.generateToken(customUserDetails);
 
-            return ResponseEntity.ok(Map.of("token",jwt));
+            return ResponseEntity.ok(new AuthResponse("Login successful", jwt));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(401).body("Invalid credentials");
         }
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody Map<String, String> registerRequest ){
-        String username = registerRequest.get("username");
-        String password = registerRequest.get("password");
-        String email = registerRequest.get("email");
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest) {
+        String username = registerRequest.getUsername();
+        String email = registerRequest.getEmail();
 
         if (userService.existsByUsername(username)) {
             return ResponseEntity.badRequest().body("Username is already taken");
@@ -82,21 +80,18 @@ public class AuthController {
         User user = new User();
         user.setUsername(username);
         user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
+        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 
-        // Assign ROLE_USER by default
         Role role = roleService.findByName(ERole.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("Error: Role not found"));
-        user.setRoles(Set.of(role));
 
+        user.setRoles(Set.of(role));
         userService.saveUser(user);
 
-        // Optionally, return JWT after registration
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
         CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
         String jwt = jwtTokenProvider.generateToken(customUserDetails);
 
-        return ResponseEntity.ok(Map.of("message", "User registered successfully", "token", jwt));
-
+        return ResponseEntity.ok(new AuthResponse("User registered successfully", jwt));
     }
 }
