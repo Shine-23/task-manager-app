@@ -1,5 +1,6 @@
 package com.example.task_manager_app.service;
 
+import com.example.task_manager_app.dto.UserDTO;
 import com.example.task_manager_app.entity.Project;
 import com.example.task_manager_app.entity.User;
 import org.springframework.data.domain.Page;
@@ -20,4 +21,5 @@ public interface ProjectService {
 
     Page<Project> findProjectsByUserAssignedTasks(Long userId, Pageable pageable);
 
+    Page<UserDTO> getUsersInProject(Long projectId, Pageable pageable);
 }
