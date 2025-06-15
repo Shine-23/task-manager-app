@@ -1,8 +1,10 @@
 package com.example.task_manager_app.service;
 
+import com.example.task_manager_app.dto.UserDTO;
 import com.example.task_manager_app.entity.Project;
 import com.example.task_manager_app.entity.User;
 import com.example.task_manager_app.repository.ProjectRepository;
+import com.example.task_manager_app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,9 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Project saveProject(Project project) {return projectRepository.save(project); }
@@ -54,4 +59,10 @@ public class ProjectServiceImpl implements ProjectService{
     public Page<Project> findProjectsByUserAssignedTasks(Long userId, Pageable pageable) {
         return projectRepository.findProjectsByUserAssignedTasks(userId,pageable);
     }
+
+    @Override
+    public Page<UserDTO> getUsersInProject(Long projectId, Pageable pageable) {
+        return userRepository.findUsersByProjectId(projectId, pageable);
+    }
+
 }
