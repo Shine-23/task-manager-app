@@ -2,6 +2,7 @@ package com.example.task_manager_app.entity;
 
 //represents the person using the app
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -35,17 +36,25 @@ public class User {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Project> projects = new ArrayList<>();
+    private List<Project> projectsOwned = new ArrayList<>();
+
+    @JsonBackReference
+    @ManyToMany(mappedBy = "members")
+    private List<Project> projectsWorking = new ArrayList<>();
 
     public User() {}
 
-    public User(Long id, String username, String password, String email, Set<Role> roles, List<Project> projects) {
+    public User(Long id, String username, String password, String email, Set<Role> roles, List<Project> projectsOwned, List<Project> projectsWorking) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.roles = roles;
-        this.projects = projects;
+        this.projectsOwned = projectsOwned;
+        this.projectsWorking = projectsWorking;
+    }
+
+    public User(Long id, String username) {
     }
 
     public Long getId() {
@@ -88,9 +97,16 @@ public class User {
         this.roles = roles;
     }
 
-    public List<Project> getProjects() {return projects; }
+    public List<Project> getProjectsOwned() {return projectsOwned; }
 
-    public void setProjects(List<Project> projects) {this.projects = projects;}
+    public void setProjectsOwned(List<Project> projectsOwned) {this.projectsOwned = projectsOwned;}
+
+    public List<Project> getProjectsWorking() {
+        return projectsWorking;
+    }
+    public void setProjectsWorking(List<Project> projectsWorking) {
+        this.projectsWorking = projectsWorking;
+    }
 
     @Override
     public boolean equals(Object o) {
