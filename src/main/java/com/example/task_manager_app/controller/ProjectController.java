@@ -1,5 +1,8 @@
 package com.example.task_manager_app.controller;
 
+import com.example.task_manager_app.dto.ProjectDTO;
+import com.example.task_manager_app.dto.ProjectRequest;
+import com.example.task_manager_app.dto.UserDTO;
 import com.example.task_manager_app.entity.Project;
 import com.example.task_manager_app.entity.User;
 import com.example.task_manager_app.exception.ResourceNotFoundException;
@@ -14,6 +17,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/projects")
@@ -22,21 +27,29 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-
-
     @Autowired
     private UserService userService;
 
-    // Create project - only ROLE_PROJECT_MANAGER allowed
-    @PreAuthorize("hasRole('PROJECT_MANAGER')")
     @PostMapping
-    public ResponseEntity<Project> createProject(@RequestBody Project project, Principal principal) {
+    @PreAuthorize("hasRole('PROJECT_MANAGER')")
+    public ResponseEntity<?> createProject(@RequestBody ProjectRequest request, Principal principal) {
         User owner = userService.findByUsername(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
+        Project project = new Project();
+        project.setName(request.getName());
+        project.setDescription(request.getDescription());
+        project.setCreatedDate(LocalDateTime.now());
         project.setOwner(owner);
-        Project savedProject = projectService.saveProject(project);
-        return ResponseEntity.ok(savedProject);
+
+        // Fetch and assign users
+        if (request.getMemberIds() != null && !request.getMemberIds().isEmpty()) {
+            List<User> members = userService.findUsersByIds(request.getMemberIds());
+            project.setMembers(members);
+        }
+
+        Project saved = projectService.saveProject(project);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     // Get projects of logged in user only
@@ -52,7 +65,7 @@ public class ProjectController {
     // Optional: Update and delete with ownership check
     @PreAuthorize("hasRole('PROJECT_MANAGER')")
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateProject(@PathVariable Long id, @RequestBody Project projectDetails, Principal principal) {
+    public ResponseEntity<?> updateProject(@PathVariable Long id, @RequestBody ProjectDTO projectDetails, Principal principal) {
         User currentUser = userService.findByUsername(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
@@ -65,7 +78,15 @@ public class ProjectController {
 
         project.setName(projectDetails.getName());
         project.setDescription(projectDetails.getDescription());
+
+        if (projectDetails.getMembersId() != null) {
+            List<User> members = userService.findUsersByIds(projectDetails.getMembersId());
+            project.setMembers(members); // ✅ apply update
+        }
+
+
         projectService.saveProject(project);
+
 
         return ResponseEntity.ok(project);
     }
@@ -114,4 +135,10 @@ public class ProjectController {
         Page<Project> projects = projectService.findProjectsByUserAssignedTasks(userId, pageable);
         return ResponseEntity.ok(projects);
     }
+    @GetMapping("/{projectId}/assigned-users")
+    @PreAuthorize("hasRole('PROJECT_MANAGER') or @projectSecurity.isMember(#projectId, authentication)")
+    public Page<UserDTO> getAssignedUsers(@PathVariable Long projectId, Pageable pageable) {
+        return projectService.getUsersInProject(projectId, pageable);
+    }
+
 }
