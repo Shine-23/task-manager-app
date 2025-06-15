@@ -102,3 +102,7 @@ src/main/java/com/example/task_manager_app
 - All tasks and projects are scoped per user access and ownership.
 - Proper error handling using @ControllerAdvice
 - DTOs are used to avoid exposing sensitive fields like passwords.
+---
+## License
+
+This project is licensed under the [GNU General Public License v3.0](./LICENSE).
