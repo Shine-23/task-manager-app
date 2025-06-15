@@ -1,6 +1,9 @@
 package com.example.task_manager_app.controller;
 
 
+import com.example.task_manager_app.dto.UserDTO;
+import com.example.task_manager_app.dto.UserWithProjectDTO;
+import com.example.task_manager_app.entity.ERole;
 import com.example.task_manager_app.entity.User;
 import com.example.task_manager_app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import static com.example.task_manager_app.entity.ERole.ROLE_USER;
 
 @RestController
 @RequestMapping("/api/users")
@@ -21,14 +27,28 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Get all users (Admin only)
-    @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Page<User>> getAllUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
-        Pageable pageable = PageRequest.of(page, size);
-        Page<User> users = userService.getAllUsers(pageable);
+    @PreAuthorize("hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
+    @GetMapping("/users")
+    public ResponseEntity<Page<UserDTO>> getAllUsers(Pageable pageable) {
+        Page<UserDTO> users = userService.getAllUsers(pageable);
         return ResponseEntity.ok(users);
     }
+
+    @GetMapping("/role/ROLE_USER")
+    public Page<UserDTO> getUsersWithRoleUser(@RequestParam(defaultValue = "0") int page,
+                                                     @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return userService.getUsersByRole(pageable);
+    }
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
+    @GetMapping("/unassigned")
+    public Page<UserDTO> getUnassignedUsers(@RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return userService.getUnassignedUsers(pageable);
+    }
+
 
     // Get user by ID (Admin or Self)
     @PreAuthorize("hasRole('ADMIN') or #id == principal.id")
@@ -37,7 +57,6 @@ public class UserController {
         Optional<User> user = userService.findById(id);
         return ResponseEntity.ok(user);
     }
-
 
     // Update user (email or password) - Admin or Self
     @PutMapping("/{id}")
@@ -54,4 +73,13 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.ok(Map.of("message", "User deleted successfully"));
     }
+
+    @GetMapping("/with-projects")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
+    public Page<UserWithProjectDTO> getUsersWithProjects(@RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return userService.getUsersWithProjectName(pageable);
+    }
+
 }
