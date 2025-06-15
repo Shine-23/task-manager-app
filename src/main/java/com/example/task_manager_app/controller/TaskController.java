@@ -83,4 +83,16 @@ public class TaskController {
         Page<Task> tasks = taskService.findTasksByProjectOwner(currentUser, pageable);
         return ResponseEntity.ok(tasks);
     }
+
+    @GetMapping("/by-project/{projectId}")
+    @PreAuthorize("hasRole('PROJECT_MANAGER')")
+    public Page<Task> getTasksByProject(@PathVariable Long projectId, Pageable pageable) {
+        return taskService.findByProjectId(projectId, pageable);
+    }
+
+    @GetMapping("/by-project-and-user/{projectId}/{userId}")
+    @PreAuthorize("hasAnyRole('USER', 'PROJECT_MANAGER')")
+    public Page<Task> getTasksByProjectAndUser(@PathVariable Long projectId, @PathVariable Long userId, Pageable pageable) {
+        return taskService.findByProjectIdAndAssignedTo(projectId, userId, pageable);
+    }
 }
