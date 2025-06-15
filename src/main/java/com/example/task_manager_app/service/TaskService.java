@@ -25,4 +25,8 @@ public interface TaskService {
     Page<Task> findTasksByProjectOwner(User owner, Pageable pageable);
 
     long countTasksAssignedToUser(User user);
+
+    Page<Task> findByProjectId(Long projectId, Pageable pageable);
+
+    Page<Task> findByProjectIdAndAssignedTo(Long projectId, Long userId, Pageable pageable);
 }
