@@ -29,15 +29,26 @@ public class Project {
     @JsonBackReference
     private User owner;
 
+    @JsonManagedReference
+    @ManyToMany(fetch =FetchType.EAGER)
+    @JoinTable(
+            name = "project_members",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> members = new ArrayList<>();
+
+
     public Project() {}
 
-    public Project(Long id, String name, String description, LocalDateTime createdDate, List<Task> tasks, User owner) {
+    public Project(Long id, String name, String description, LocalDateTime createdDate, List<Task> tasks, User owner, List<User> members) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.createdDate = createdDate;
         this.tasks = tasks;
         this.owner = owner;
+        this.members = members;
     }
 
     public Long getId() {
@@ -86,6 +97,14 @@ public class Project {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
     }
 
     @Override
