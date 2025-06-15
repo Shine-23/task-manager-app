@@ -1,7 +1,5 @@
 package com.example.task_manager_app.entity;
 
-//actual tasks the user manages
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
