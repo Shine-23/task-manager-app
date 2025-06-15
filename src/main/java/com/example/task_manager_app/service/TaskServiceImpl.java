@@ -63,4 +63,14 @@ public class TaskServiceImpl implements TaskService{
     public long countTasksAssignedToUser(User user) {
         return taskRepository.countTasksByAssignedUser(user);
     }
+
+    @Override
+    public Page<Task> findByProjectId(Long projectId, Pageable pageable) {
+        return taskRepository.findByProjectId(projectId,pageable);
+    }
+
+    @Override
+    public Page<Task> findByProjectIdAndAssignedTo(Long projectId, Long userId, Pageable pageable) {
+        return taskRepository.findByProjectIdAndAssignedUserId(projectId, userId, pageable);
+    }
 }
