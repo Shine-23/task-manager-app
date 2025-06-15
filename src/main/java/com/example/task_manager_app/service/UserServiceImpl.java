@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService{
 
     public Page<User> getAllUsers(Pageable pageable) {return userRepository.findAll(pageable);}
 
-    public Optional<User> getUserById(Long id){return userRepository.findById(id); }
+    public Optional<User> findById(Long id){return userRepository.findById(id); }
 
     public Optional<User> updateUser(Long id, User updatedUser) {
         return userRepository.findById(id).map(user -> {

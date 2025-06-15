@@ -4,7 +4,6 @@ import com.example.task_manager_app.entity.User;
 import com.example.task_manager_app.repository.UserRepository;
 import com.example.task_manager_app.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -39,4 +39,19 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Override
     public void deleteProject(Long id) {projectRepository.deleteById(id); }
+
+    @Override
+    public long countByOwner(User owner) {
+        return projectRepository.countByOwner(owner);
+    }
+
+    @Override
+    public long countProjectsByUserTasks(User user) {
+        return projectRepository.countProjectsByUserTasks(user);
+    }
+
+    @Override
+    public Page<Project> findProjectsByUserAssignedTasks(Long userId, Pageable pageable) {
+        return projectRepository.findProjectsByUserAssignedTasks(userId,pageable);
+    }
 }

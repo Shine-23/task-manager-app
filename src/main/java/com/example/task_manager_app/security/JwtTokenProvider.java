@@ -26,9 +26,10 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
-    public String generateToken(UserDetails userDetails){
+    public String generateToken(CustomUserDetails userDetails){
         return Jwts.builder()
                 .subject(userDetails.getUsername())
+                .claim("id", userDetails.getId())
                 .claim("roles", userDetails.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .issuedAt(new Date())

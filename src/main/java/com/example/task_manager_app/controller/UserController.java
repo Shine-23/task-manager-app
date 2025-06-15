@@ -34,7 +34,7 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN') or #id == principal.id")
     @GetMapping("{id}")
     public ResponseEntity<Optional<User>> getUserById(@PathVariable Long id) {
-        Optional<User> user = userService.getUserById(id);
+        Optional<User> user = userService.findById(id);
         return ResponseEntity.ok(user);
     }
 

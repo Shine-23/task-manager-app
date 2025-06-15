@@ -13,4 +13,11 @@ public interface ProjectService {
     Optional<Project> getProjectById(Long id);
     Optional<Project> updateProject(Project project);
     void deleteProject(Long id);
+
+    long countByOwner(User user);
+
+    long countProjectsByUserTasks(User user);
+
+    Page<Project> findProjectsByUserAssignedTasks(Long userId, Pageable pageable);
+
 }

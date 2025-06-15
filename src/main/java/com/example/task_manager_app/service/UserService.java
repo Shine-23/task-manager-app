@@ -11,7 +11,7 @@ public interface    UserService {
     Optional<User> findByUsername(String username);
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
-    Optional<User> getUserById(Long id);
+    Optional<User> findById(Long id);
     Page<User> getAllUsers(Pageable pageable);
     Optional<User> updateUser(Long id, User user);
     void deleteUser(Long id);

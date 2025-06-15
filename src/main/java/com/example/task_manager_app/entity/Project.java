@@ -1,5 +1,7 @@
 package com.example.task_manager_app.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -19,11 +21,13 @@ public class Project {
     private LocalDateTime createdDate;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Task> tasks = new ArrayList<>();
 
-     @ManyToOne
-     @JoinColumn(name = "user_id")
-     private User owner;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User owner;
 
     public Project() {}
 

@@ -2,11 +2,10 @@ package com.example.task_manager_app.entity;
 
 //represents the person using the app
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 
@@ -34,14 +33,19 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Project> projects = new ArrayList<>();
+
     public User() {}
 
-    public User(Long id, String username, String password, String email, Set<Role> roles) {
+    public User(Long id, String username, String password, String email, Set<Role> roles, List<Project> projects) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.roles = roles;
+        this.projects = projects;
     }
 
     public Long getId() {
@@ -83,6 +87,10 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public List<Project> getProjects() {return projects; }
+
+    public void setProjects(List<Project> projects) {this.projects = projects;}
 
     @Override
     public boolean equals(Object o) {

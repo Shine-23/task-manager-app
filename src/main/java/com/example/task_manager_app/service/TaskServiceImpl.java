@@ -53,4 +53,14 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public void deleteTask(Long id) {taskRepository.deleteById(id); }
+
+    @Override
+    public Page<Task> findTasksByProjectOwner(User owner, Pageable pageable) {
+        return taskRepository.findTasksByProjectOwner(owner, pageable);
+    }
+
+    @Override
+    public long countTasksAssignedToUser(User user) {
+        return taskRepository.countTasksByAssignedUser(user);
+    }
 }

@@ -2,6 +2,7 @@ package com.example.task_manager_app.entity;
 
 //actual tasks the user manages
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 
@@ -26,11 +27,12 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "project_id")
+    @JsonBackReference
     private Project project;
 
-     @ManyToOne
-     @JoinColumn(name = "user_id")
-     private User assignedUser;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User assignedUser;
 
     public Task() {}
 
