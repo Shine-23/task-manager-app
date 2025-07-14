@@ -1,0 +1,99 @@
+.users-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px 30px;
+  background: #fefefe;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.users-container h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+}
+
+.users-table thead {
+  background-color: #4b0082;
+  color: white;
+}
+
+.users-table th,
+.users-table td {
+  padding: 14px 20px;
+  text-align: left;
+}
+
+.users-table tbody tr {
+  transition: background-color 0.2s;
+}
+
+.users-table tbody tr:hover {
+  background-color: #f4f6f8;
+}
+
+.users-table button {
+  padding: 8px 14px;
+  background-color: #4c0082b6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.users-table button:hover {
+  background-color:#4b0082;
+  transform: scale(1.03);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  gap: 16px;
+}
+
+.pagination button {
+  padding: 8px 18px;
+  background-color: #4c0082b6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.pagination button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #4b0082;
+  transform: scale(1.02);
+}
+
+.pagination span {
+  font-weight: 600;
+  color:#4b0082;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin: 20px 0;
+  font-weight: bold;
+}

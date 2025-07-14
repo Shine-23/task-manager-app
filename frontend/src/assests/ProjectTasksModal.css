@@ -1,0 +1,88 @@
+/* Main action container (Edit/Delete/Badge) */
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+/* Purple badge for username */
+.badge-purple {
+  background-color: #4b0082; /* Bootstrap purple */
+  color: #fff;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+/* Create Task Button */
+.btn-purple {
+  background-color: #4b0082;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-purple:hover {
+  background-color: #5e36a0;
+}
+
+/* Edit Button */
+.btn-edit {
+  background-color: #6f42c1;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-edit:hover {
+  background-color: #5e36a0;
+}
+
+/* Delete Button */
+.btn-delete {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-delete:hover {
+  background-color: #c0392b;
+}
+
+/* Responsive task title & info */
+.list-group-item > div:first-child {
+  max-width: 60%;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .task-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 0;
+    gap: 0.25rem;
+  }
+
+  .list-group-item {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .list-group-item > div:first-child {
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}

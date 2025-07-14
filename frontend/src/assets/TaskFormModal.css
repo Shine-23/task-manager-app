@@ -1,0 +1,52 @@
+/* TaskFormModal.css */
+
+/* Save (Primary) Button - Purple Themed */
+.btn-save {
+  background-color: #4b0082;
+  color: white;
+  padding: 0.45rem 1.1rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.btn-save:hover {
+  background-color: #5e36a0;
+   color: white;
+}
+
+/* Cancel Button - Light Grey */
+.btn-cancel {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 0.45rem 1.1rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #cacaca;
+}
+
+/* Form elements (optional clean-up) */
+form label {
+  font-weight: 500;
+}
+
+form select,
+form textarea,
+form input {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  transition: border 0.2s;
+}
+
+form select:focus,
+form textarea:focus,
+form input:focus {
+  border-color: #6f42c1;
+  box-shadow: 0 0 0 0.15rem rgba(111, 66, 193, 0.25);
+}

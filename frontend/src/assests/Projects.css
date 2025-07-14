@@ -1,0 +1,144 @@
+/* Projects.css */
+
+.projects-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(75, 0, 130, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.projects-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #4b0082;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+.create-btn {
+  display: block;
+  margin: 0 auto 2rem;
+  padding: 0.7rem 1.4rem;
+  background-color: #4b0082;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.create-btn:hover {
+  background-color: #4c0082b6;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: #fdfbff;
+  border: 1px solid #e3d6f2;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(75, 0, 130, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(75, 0, 130, 0.2);
+}
+
+.project-card h3 {
+  margin-bottom: 0.5rem;
+  color: #4b0082;
+  font-size: 1.2rem;
+}
+
+.project-card p {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+.view-btn,
+.edit-btn,
+.delete-btn {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+/* Buttons with custom purple shades */
+.view-btn {
+  background-color: #4b0082;
+  color: white;
+}
+
+.view-btn:hover {
+  background-color: #4c0082b6;
+}
+
+.edit-btn {
+  background-color: #a85cff;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #8f4adf;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+.pagination {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pagination button {
+  background-color: #4b0082;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pagination button:hover {
+  background-color: #4c0082b6;
+}
+
+.pagination span {
+  font-weight: bold;
+  color: #4b0082;
+  align-self: center;
+}
+
+.project-card-buttons {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}

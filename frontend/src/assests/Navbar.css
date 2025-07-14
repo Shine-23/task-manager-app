@@ -1,0 +1,75 @@
+/* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4b0082; /* dark purple */
+  padding: 1rem 2rem;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Left side nav items */
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Brand style */
+.nav-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  margin-left: 1rem;
+  margin-right: 2rem;
+}
+
+/* Nav links (Dashboard, Projects, Login, Register) */
+.nav-link {
+  color: white;
+  text-decoration: none;
+  margin-right: 1.5rem;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* Right side container */
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Username greeting */
+.nav-user {
+  margin-right: 1rem;
+  font-weight: 600;
+}
+
+/* Logout button style */
+.nav-logout-btn {
+  background: none;
+  border: 1.5px solid white;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.nav-logout-btn:hover {
+  background-color: white;
+  color: #4b0082;
+}
+
+/* Apply white color to entire body (all pages) */
+body, #root {
+  background-color: white;
+  color: #000; /* black text */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}

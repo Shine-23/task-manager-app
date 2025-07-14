@@ -1,0 +1,108 @@
+.register-container {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-form {
+  width: 380px;
+  padding: 2.5rem 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(75, 0, 130, 0);
+  background-color: #fff;
+  border: 3px solid #4b0082;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.register-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #4b0082;
+  margin-bottom: 1.8rem;
+  text-align: center;
+}
+
+.input-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #4b0082;
+  margin-bottom: 0.6rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field {
+  margin-top: 0.3rem;
+  padding: 0.6rem 0.9rem;
+  font-size: 1rem;
+  border: 1.8px solid #4b0082;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-weight: 500;
+  color: #4b0082;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #6a22a8;
+}
+
+.register-button {
+  margin-top: 1.8rem;
+  padding: 0.65rem 0;
+  background-color: #4b0082;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.15rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-button:disabled {
+  background-color: #a085c9;
+  cursor: not-allowed;
+}
+
+.register-button:hover:not(:disabled) {
+  background-color: #6a22a8;
+}
+
+.error-message {
+  background-color: #fce4e4;
+  color: #b00020;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  text-align: center;
+  box-shadow: 0 1px 5px rgba(176, 0, 32, 0.25);
+}
+
+.login-text {
+  margin-top: 1.4rem;
+  font-size: 0.9rem;
+  color: #4b0082;
+  text-align: center;
+}
+
+.login-link {
+  font-weight: 700;
+  color: #6a22a8;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.login-link:hover {
+  color: #9b47d9;
+  text-decoration: underline;
+}
