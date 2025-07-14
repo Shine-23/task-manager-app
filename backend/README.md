@@ -1,4 +1,4 @@
-# Task Manager Backend
+# Task Manager - Backend
 
 A role-based task management REST API built with **Spring Boot** and **MySQL**. It supports secure user authentication, project and task management, and access control based on user roles.
 
